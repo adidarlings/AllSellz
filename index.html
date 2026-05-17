@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+
+
+<style>
+
+.page{
+  display:none;
+  padding:40px;
+  margin:30px;
+  background:#fff;
+  border-radius:12px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.08);
+}
+
+</style>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="AllSellz - Premium e-commerce store for electronics, fashion & more. Shop wireless headphones, smartwatches, smartphones at best prices." />
+  <meta name="keywords" content="ecommerce, headphones, smartwatch, smartphone, AllSellz" />
+  <title>AllSellz — Premium Shopping Experience</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- Chart.js for Admin -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/styles.css" />
+
+  <style>
+
+.support-box{
+  display:none;
+  max-width:700px;
+  margin:40px auto;
+  padding:30px;
+  background:rgb(69, 113, 143);
+  color:black;
+  border-radius:15px;
+  box-shadow:0 5px 15px rgba(0,0,0,0.2);
+}
+
+.support-box h2{
+  margin-bottom:20px;
+}
+
+.support-box p{
+  margin:10px 0;
+}
+
+</style>
+
+
+
+
+
+</head>
+<body>
+  <div id="mainWebsite">
+  <!-- ============ LOADER ============ -->
+  <div id="loader" class="loader">
+    <div class="loader-logo">
+      <span class="grad-text">AllSellz</span>
+    </div>
+    <div class="loader-bar"><div class="loader-fill"></div></div>
+  </div>
+
+  <!-- ============ NAVBAR ============ -->
+  <header id="navbar" class="navbar">
+    <div class="nav-container">
+      <a href="#" class="logo" data-route="home">
+        <div class="logo-icon">
+          <svg viewBox="0 0 40 40" width="36" height="36">
+            <defs>
+              <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#6366f1"/>
+                <stop offset="100%" stop-color="#a855f7"/>
+              </linearGradient>
+            </defs>
+            <rect x="2" y="2" width="36" height="36" rx="10" fill="url(#logoGrad)"/>
+            <path d="M12 26 L20 12 L28 26 M15 22 L25 22" stroke="white" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <span class="logo-text grad-text">AllSellz</span>
+      </a>
+
+      <nav class="nav-links" id="navLinks">
+  <a href="index.html" class="nav-link">Home</a>
+  <a href="index.html?route=shop" class="nav-link">Shop</a>
+  <a href="index.html?route=categories" class="nav-link">Categories</a>
+</nav>
+
+      <div class="nav-search">
+        <i class="fas fa-search"></i>
+        <input type="text" id="searchInput" placeholder="Search products..." />
+      </div>
+
+      <div class="nav-actions">
+        <button id="themeToggle" class="icon-btn" aria-label="Toggle theme">
+          <i class="fas fa-moon"></i>
+        </button>
+        <button class="icon-btn" aria-label="Wishlist" data-route="wishlist">
+  <i class="fas fa-heart"></i>
+  <span class="badge" id="wishlistBadge">0</span>
+</button>
+        <button class="icon-btn" id="cartBtn" onclick="openPage('cart')">
+          <i class="fas fa-shopping-bag"></i>
+          <span class="badge" id="cartBadge">0</span>
+        </button>
+        <div class="user-menu">
+          <button class="icon-btn" id="userBtn" aria-label="Account">
+            <i class="fas fa-user"></i>
+          </button>
+          <div class="user-dropdown" id="userDropdown">
+            <div class="user-info" id="userInfo">
+              <p class="user-name">Guest User</p>
+              <p class="user-email">Not signed in</p>
+            </div>
+            <a href="#" onclick="openPage('login')"> <i class="fas fa-sign-in-alt"></i> Login</a>
+            <a href="#" onclick="openPage('signup')"> <i class="fas fa-user-plus"></i> Sign Up</a>
+            <a href="#" data-route="profile"><i class="fas fa-user-circle"></i> Profile</a>
+            <a href="#" data-route="orders"><i class="fas fa-box"></i> My Orders</a>
+            
+          </div>
+        </div>
+        <button class="hamburger" id="hamburger" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ MAIN APP ============ -->
+  <main id="app"></main>
+  
+
+  <!-- ============ CART DRAWER ============ -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <aside class="cart-drawer" id="cartDrawer">
+    <div class="cart-header">
+      <h3><i class="fas fa-shopping-bag"></i> Your Cart</h3>
+      <button class="icon-btn" id="closeCart"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="cart-body" id="cartBody"></div>
+    <div class="cart-footer" id="cartFooter"></div>
+  </aside>
+  </div>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="logo">
+          <div class="logo-icon">
+            <svg viewBox="0 0 40 40" width="32" height="32">
+              <rect x="2" y="2" width="36" height="36" rx="10" fill="url(#logoGrad)"/>
+              <path d="M12 26 L20 12 L28 26 M15 22 L25 22" stroke="white" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <span class="logo-text grad-text">AllSellz</span>
+        </div>
+        <p class="footer-about">Your premium destination for electronics, fashion, and lifestyle products. Shop the best brands at unbeatable prices.</p>
+        <div class="social-links">
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
+          <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+  <h4>Shop</h4>
+
+  <ul>
+   <li><a href="index.html?route=shop" target="_blank">All Products</a></li>
+  <li><a href="index.html?route=categories" target="_blank">Categories</a></li>
+</ul>
+</div>
+
+<div class="footer-col">
+
+  <h4>Support</h4>
+
+  <ul>
+  <li><a href="javascript:void(0)" onclick="toggleSupport(event,'contactPage')">Contact Us</a></li>
+  <li><a href="javascript:void(0)" onclick="toggleSupport(event,'faqPage')">FAQs</a></li>
+  <li><a href="javascript:void(0)" onclick="toggleSupport(event,'shippingPage')">Shipping Info</a></li>
+  <li><a href="javascript:void(0)" onclick="toggleSupport(event,'returnsPage')">Returns</a></li>
+</ul>
+
+</div>
+
+
+
+<!-- SHIPPING -->
+<div id="shipping" class="page" style="display:none;">
+  <h2>Shipping Info</h2>
+  <p style="white-space: nowrap;">Delivery in 5–7 days.</p>
+  <p style="white-space: nowrap;">Free shipping above ₹999.</p>
+</div>
+
+<!-- RETURNS -->
+
+
+<script>
+window.addEventListener("DOMContentLoaded", () => {
+  const params = new URLSearchParams(window.location.search);
+  const page = params.get("page");
+
+  const mainWebsite = document.getElementById("mainWebsite");
+
+  function hideAllPages() {
+    document.querySelectorAll(".page").forEach(p => {
+      p.style.display = "none";
+    });
+  }
+
+  if (page) {
+    // hide homepage
+    if (mainWebsite) mainWebsite.style.display = "none";
+
+    hideAllPages();
+
+    const selectedPage = document.getElementById(page);
+
+    if (selectedPage) {
+      selectedPage.style.display = "block";
+    } else {
+      console.warn("Page not found:", page);
+    }
+  }
+});
+</script>
+
+</div>
+
+  
+
+      <div class="footer-col">
+        <h4>Newsletter</h4>
+        <p>Subscribe for exclusive offers and updates.</p>
+        <form class="newsletter" onsubmit="event.preventDefault(); toast('Subscribed successfully!', 'success'); this.reset();">
+          <input type="email" placeholder="Your email" required />
+          <button type="submit"><i class="fas fa-paper-plane"></i></button>
+        </form>
+        <div class="payment-icons">
+          <i class="fab fa-cc-visa"></i>
+          <i class="fab fa-cc-mastercard"></i>
+          <i class="fab fa-cc-paypal"></i>
+          <i class="fab fa-google-pay"></i>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 AllSellz. All rights reserved. Crafted with ❤ for premium shopping.</p>
+    </div>
+  </footer>
+
+
+          <!-- SUPPORT PAGES -->
+
+<!-- SUPPORT PAGES -->
+
+<div class="support-pages">
+
+  <div id="contactPage" class="support-box">
+    <h2><i class="fas fa-headset"></i> Contact Us</h2>
+    
+    <p>
+      <i class="fas fa-phone"></i>
+      <strong>Phone:</strong> +91 7607569133
+    </p>
+
+    <p>
+      <i class="fas fa-envelope"></i>
+      <strong>Email:</strong> sellz@gmail.com
+    </p>
+  </div>
+
+  <div id="faqPage" class="support-box">
+    <h2><i class="fas fa-circle-question"></i> FAQs</h2>
+
+    <p>How can I place an order?</p>
+    <p>Add products to cart and checkout.</p>
+    <p>Payment methods: UPI, Card, COD.</p>
+  </div>
+
+  <div id="shippingPage" class="support-box">
+    <h2><i class="fas fa-truck"></i> Shipping Info</h2>
+
+    <p>
+      <i class="fas fa-truck-fast"></i>
+      <strong>Delivery:</strong> 5–7 days
+    </p>
+
+    <p>
+      <i class="fas fa-gift"></i>
+      <strong>Free Shipping:</strong> Above ₹999
+    </p>
+  </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+    <div id="pagesContainer" style="display:none; padding:40px;">
+
+
+  <div id="faq" class="page" style="display:none;">
+    <h2>FAQs</h2>
+    <p>How can I place an order? Add products to cart and checkout.</p>
+    <p>Payment methods: UPI, Card, COD.</p>
+  </div>
+
+
+  <div id="returns" class="page" style="display:none;">
+    <h2>Returns & Refunds</h2>
+    <p>Return within 7 days of delivery.</p>
+    <p>Item must be unused and in original packaging.</p>
+    <p>Refund processed in 5–7 business days.</p>
+  </div>
+
+</div>
+
+  <div id="contact" class="page" style="display:none;">
+...
+</div>
+
+<div id="faq" class="page" style="display:none;">
+...
+</div>
+
+<div id="shipping" class="page" style="display:none;">
+...
+</div>
+
+<div id="returns" class="page" style="display:none;">
+...
+</div>
+
+  <!-- Back to top -->
+  <button id="backToTop" class="back-to-top" aria-label="Back to top">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <!-- Toast container -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- Scripts -->
+  <script src="js/products.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/admin.js"></script>
+  <script src="js/app.js"></script>
+
+
+
+  
+
+  <!-- Toggle Pages Script -->
+  <script>
+
+  function togglePage(pageId) {
+
+    // hide all pages
+    document.querySelectorAll(".page").forEach(page => {
+      page.style.display = "none";
+    });
+
+    // show clicked page
+    const page = document.getElementById(pageId);
+
+    if (page) {
+      page.style.display = "block";
+
+      // smooth scroll
+      page.scrollIntoView({
+        behavior: "smooth"
+      });
+    }
+  }
+
+  </script>
+
+<script>
+
+function toggleSupport(event, id){
+
+  // stop reload / jump
+  event.preventDefault();
+
+  // hide all
+  document.querySelectorAll(".support-box").forEach(box => {
+    box.style.display = "none";
+  });
+
+  // show selected
+  const selected = document.getElementById(id);
+
+  if(selected){
+    selected.style.display = "block";
+
+    selected.scrollIntoView({
+      behavior: "smooth"
+    });
+  }
+}
+
+
+</script>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  const params = new URLSearchParams(window.location.search);
+  const page = params.get("page");
+
+  const app = document.getElementById("app");
+  const mainWebsite = document.getElementById("mainWebsite");
+
+  if (!page) return;
+
+  // hide main website
+  mainWebsite.style.display = "none";
+
+  // helper function
+  function showError(title) {
+    app.innerHTML = `
+      <div style="padding:20px">
+        <h2>${title}</h2>
+        <p>JS function missing ya file load nahi ho rahi</p>
+      </div>
+    `;
+  }
+
+  // PRODUCTS
+  if (page === "products") {
+    console.log("Products page opened");
+
+    if (typeof window.loadProducts === "function") {
+      window.loadProducts();
+    } else {
+      showError("🛍️ Products");
+      console.error("loadProducts missing");
+    }
+  }
+
+  // CATEGORIES
+  else if (page === "categories") {
+    if (typeof window.loadCategories === "function") {
+      window.loadCategories();
+    } else {
+      showError("📂 Categories");
+    }
+  }
+
+  
+
+});
+</script>
+
+
+</body>
+
+
+</body>
+</html>
